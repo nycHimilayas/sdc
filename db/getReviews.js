@@ -31,7 +31,20 @@ const { Reviews, ReviewPhoto, CharacteristicReviews, Characteristics } =
     url: req.body.photos,
   }
 
-    Reviews.create(newReview, { upsert: true })
+  const newReviewCharacteristics = {
+    id: 'test',
+    product_id: req.body.product_id,
+    name: 'Fit'
+  }
+
+  const newReviewCharacteristicsReviews = {
+    testNumber: '1',
+    testNumber: '2',
+    testNumber: '3',
+    testNumber: '4',
+  }
+
+  Reviews.create(newReview, { upsert: true })
 
   // }
   // save()
@@ -321,46 +334,29 @@ app.get('/reviews/meta', (req, res) => {
   })
 })
 
-// app.post('/reviews', (req, res) => {
-//   console.log('reqBody: ', req.body)
+app.put('/reviews/:review_id/helpful',  (req, res) => {
+  console.log('reqPut: ', req.params.review_id);
+  let _id = req.params.review_id;
+    Reviews.aggregate([
+      {$match: {id: _id}},
+    ])
+  .then((data) => {
+    let addOne = parseInt(data[0].helpfulness)
+    addOne++
+    addOne = `${addOne}`;
+    Reviews.updateOne(
+      {id: _id},
+      {$set: {helpfulness: `${addOne}`}},
+    )
+    .then((data) => {
+      res.status(201).json(data[0])
+    })
+  })
+  .catch((err) => {
+    res.status(404);
+  })
 
-//   let save = (req.body) => {
-
-//     const newReview = {
-//       product_id: req.body.product_id,
-//       rating: req.body.rating,
-//       date: new Date(),
-//       summary: req.body.summary,
-//       body: req.body.body,
-//       recommend: req.body.setTrue,
-//       reviewer_name: req.body.reviewer_name,
-//       reviewer_email: req.body.reviewer_email,
-//     }
-
-//     Review.insertOne()
-
-//     const newReviewPhoto = {
-//       id:
-//       review_id:
-//       url: ''
-//     }
-
-//     const newReviewCharacteristics = {
-//       id: '',
-//       product_id: req.body.product_id,
-//       name: ''
-//     }
-
-//     const newReviewCharacteristicsReviews = {
-//       id: '',
-//       characteritic_id: '',
-//       review_id: '',
-//       value: ''
-//     }
-
-//   }
-
-// })
+})
 
 // 1. curl -d '{"name": "John", "age": 32}' -H
 // "Content-Type: application/json" -X POST http://localhost:3000
