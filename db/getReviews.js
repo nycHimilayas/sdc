@@ -46,19 +46,8 @@ const { Reviews, ReviewPhoto, CharacteristicReviews, Characteristics } =
 
   Reviews.create(newReview, { upsert: true })
 
-  // }
-  // save()
-  //   // const newReviewPhoto = {
-  //   //   id: 'testNumber'
-  //   //   review_id: 'test'
-  //   //   url: 'test url'
-  //   // }
-
-
-
   .then((data) => {
     console.log('postData: ', data)
-    // res.status(201).json(data);
   })
   .catch((err) => {
     console.err(err);
@@ -73,37 +62,6 @@ const { Reviews, ReviewPhoto, CharacteristicReviews, Characteristics } =
     console.err(err);
     res.sendStatus(404);
   })
-
-
-
-
-
-  //   // const newReviewCharacteristics = {
-  //   //   id: '',
-  //   //   product_id: req.body.product_id,
-  //   //   name: 'Fit'
-  //   // }
-
-  //   // CharacteristicReviews.insertOne(newReviewCharacteristics).exec();
-
-
-  //   // const newReviewCharacteristicsReviews = {
-  //   //   testNumber: '1',
-  //   //   testNumber: '2',
-  //   //   testNumber: '3',
-  //   //   testNumber: '4',
-  //   // }
-
-  //   // Characteristics.insertOne(newReviewCharacteristicsReviews).exec();
-
-  //   // const newReviewCharacteristicsReviews = {
-  //   //   id: '',
-  //   //   characteritic_id: '',
-  //   //   review_id: '',
-  //   //   value: ''
-  //   // }
-  // }
-  // save(req.body)
 })
 
 app.get('/reviews', (req, res) => {
@@ -244,7 +202,6 @@ app.get('/reviews/meta', (req, res) => {
       } else {
         _ratings[item]++
       }
-
     })
 
     data[0].recommend.forEach((item) => {
@@ -298,8 +255,6 @@ app.get('/reviews/meta', (req, res) => {
     _dataTotals.comfortAverage = (_dataTotals.Comfort / _dataTotals.totalComfort).toFixed(2);
     _dataTotals.qualityAverage = (_dataTotals.Quality / _dataTotals.totalQuality).toFixed(2);
 
-    console.log('DT: ', _dataTotals);
-
     const result = {
       product: _product_id,
       ratings: _ratings,
@@ -322,27 +277,23 @@ app.get('/reviews/meta', (req, res) => {
           value: _dataTotals.qualityAverage,
         },
       }
-
     }
-    console.log(result);
     res.status(200).json(result);
   })
   .catch((err) => {
     console.log(err.message)
     res.sendStatus(500)
-
   })
 })
 
 app.put('/reviews/:review_id/helpful',  (req, res) => {
-  console.log('reqPut: ', req.params.review_id);
   let _id = req.params.review_id;
     Reviews.aggregate([
       {$match: {id: _id}},
     ])
   .then((data) => {
-    let addOne = parseInt(data[0].helpfulness)
-    addOne++
+    let addOne = parseInt(data[0].helpfulness);
+    addOne++;
     addOne = `${addOne}`;
     Reviews.updateOne(
       {id: _id},
@@ -355,11 +306,28 @@ app.put('/reviews/:review_id/helpful',  (req, res) => {
   .catch((err) => {
     res.status(404);
   })
-
 })
 
-// 1. curl -d '{"name": "John", "age": 32}' -H
-// "Content-Type: application/json" -X POST http://localhost:3000
+app.put('/reviews/:review_id/report',  (req, res) => {
+  let _id = req.params.review_id;
+    Reviews.aggregate([
+      {$match: {id: _id}},
+    ])
+  .then((data) => {
+    let _reported = data[0].reported
+    console.log('reported:', _reported)
+    Reviews.updateOne(
+      {id: _id},
+      {$set: {reported: true}},
+    )
+    .then((data) => {
+      res.status(201).json(data[0])
+    })
+  })
+  .catch((err) => {
+    res.status(404);
+  })
+})
 
 app.listen(port, () => {
   console.log(`getReviews listening at http://localhost:${port}`)
