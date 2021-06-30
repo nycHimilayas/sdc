@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost:3000"
+  target: "http://localhost:3001"
   phases:
     - duration: 1
       arrivalRate: 1000
@@ -7,4 +7,4 @@ config:
 scenarios:
   - flow:
       - get:
-          url: "/reviews/?product_id=62&count=100&sort=newest&page=0"
+          url: "/reviews/?product_id=62&count=100"

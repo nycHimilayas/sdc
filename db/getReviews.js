@@ -9,7 +9,7 @@ const { Reviews, ReviewPhoto, CharacteristicReviews, Characteristics } =
  require('./reviews.js')
 
  app.post('/reviews', (req, res) => {
-  console.log('reqBody: ', req.body)
+  // console.log('reqBody: ', req.body)
 
    const newReview = {
      product_id: req.body.product_id,
@@ -47,25 +47,25 @@ const { Reviews, ReviewPhoto, CharacteristicReviews, Characteristics } =
   Reviews.create(newReview, { upsert: true })
 
   .then((data) => {
-    console.log('postData: ', data)
+    // console.log('postData: ', data)
   })
   .catch((err) => {
-    console.err(err);
+    // console.err(err);
     res.sendStatus(404);
   })
   .then((data) => {
     ReviewPhoto.create(newReviewPhoto, { upsert: true })
-    console.log('postData2: ', data)
+    // console.log('postData2: ', data)
     res.status(201).json(data);
   })
   .catch((err) => {
-    console.err(err);
+    // console.err(err);
     res.sendStatus(404);
   })
 })
 
 app.get('/reviews', (req, res) => {
-  console.log('Reviews', Reviews);
+  // console.log('Reviews', Reviews);
   let _page = parseInt(req.query.page || 1);
   let _count = parseInt(req.query.count || 5);
   let _sort = req.query.sort;
@@ -128,11 +128,11 @@ app.get('/reviews', (req, res) => {
       count: data.length,
       results: data,
     }
-    console.log('result', result)
+    // console.log('result', result)
     res.status(200).json(result);
   })
   .catch((err) => {
-    console.log(err.message)
+    // console.log(err.message)
     res.sendStatus(500)
   });
 })
@@ -221,8 +221,8 @@ app.get('/reviews/meta', (req, res) => {
 
     data[0].vals.forEach((item) => {
       item.forEach((val) => {
-        console.log('itemVal***', val.characteristic_id)
-        console.log('itemVal***', val.characteristic_id === '1')
+        // console.log('itemVal***', val.characteristic_id)
+        // console.log('itemVal***', val.characteristic_id === '1')
         if (val.characteristic_id === '1') {
           _dataTotals.Fit += parseInt(val.value);
           _dataTotals.totalFit++
@@ -281,7 +281,7 @@ app.get('/reviews/meta', (req, res) => {
     res.status(200).json(result);
   })
   .catch((err) => {
-    console.log(err.message)
+    // console.log(err.message)
     res.sendStatus(500)
   })
 })
