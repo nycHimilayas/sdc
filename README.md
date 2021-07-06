@@ -70,8 +70,6 @@ If the test results from artillery are unsatisfactory, please check with the mon
 ![artillery test post index](readmeFiles/postIndexArtillery.png "artillery test after indexing with mongo")
 
 
-```
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 Please make sure to update tests as appropriate.
