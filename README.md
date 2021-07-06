@@ -63,7 +63,7 @@ If the test results from artillery are unsatisfactory, please check with the mon
 
 Example load test before indexing:
 
-(/readmeFiles/preIndexArtillery.png)
+![artillery test](readmeFiles/preIndexArtillery.png "artillery test")
 
 
 
