@@ -59,32 +59,22 @@ https://artillery.io/docs/guides/getting-started/writing-your-first-test.html
 
 There is a .yml file in the root directory that can be modified accordingly.
 
-If the test results from artillery are unsatisfactory, please check with the mongoDB documentation regarding indexing.
+If the test results from artillery are unsatisfactory, please check with the mongoDB documentation regarding indexing. https://docs.mongodb.com/manual/indexes/
 
-Example load test before indexing:
+### Example load test before indexing: 
 
 ![artillery test](readmeFiles/preIndexArtillery.png "artillery test")
 
+### Example load test after indexing: 
+
+![artillery test post index](readmeFiles/postIndexArtillery.png "artillery test after indexing with mongo")
 
 
-## Usage
-
-```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
 ```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
 Please make sure to update tests as appropriate.
 
 ## License
+Mark Vale 2021
