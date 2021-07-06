@@ -52,6 +52,10 @@ fs.createReadStream('<YOUR_CSV_FILEPATH>')
 - make sure you have mongoDB locally installed
 - node db/getreviews.js start
 
+## Aggregation Framework
+
+- ******************* Add more here ***************************
+
 ## Testing With artillery.io
 
 Follow the instructions in the official artillery.io documentation:
@@ -68,6 +72,9 @@ If the test results from artillery are unsatisfactory, please check with the mon
 ### Example load test after indexing: 
 
 ![artillery test post index](readmeFiles/postIndexArtillery.png "artillery test after indexing with mongo")
+
+## Docker Deployment
+- ******************* Add more here ***************************
 
 ## New MongoDB Instance on AWS
 
