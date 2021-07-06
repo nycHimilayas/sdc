@@ -83,6 +83,9 @@ https://docs.mongodb.com/database-tools/mongodump/
 
 <!-- ### Install MongoDB on AWS Instance: -->
 
+### Mongo Restore
+https://docs.mongodb.com/database-tools/mongorestore/
+
 
 
 ## Contributing
